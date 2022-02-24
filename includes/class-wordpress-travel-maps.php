@@ -1,0 +1,238 @@
+<?php
+
+/**
+ * The file that defines the core plugin class.
+ *
+ * A class definition that includes attributes and functions used across both the
+ * public-facing side of the site and the admin area.
+ *
+ * @link       http://woocommerce.db-dzine.de
+ * @since      1.0.0
+ */
+
+class WordPress_Travel_Maps
+{
+    /**
+     * The loader that's responsible for maintaining and registering all hooks that power
+     * the plugin.
+     *
+     * @since    1.0.0
+     *
+     * @var WordPress_Travel_Maps_Loader Maintains and registers all hooks for the plugin.
+     */
+    protected $loader;
+
+    /**
+     * The unique identifier of this plugin.
+     *
+     * @since    1.0.0
+     *
+     * @var string The string used to uniquely identify this plugin.
+     */
+    protected $plugin_name;
+
+    /**
+     * The current version of the plugin.
+     *
+     * @since    1.0.0
+     *
+     * @var string The current version of the plugin.
+     */
+    protected $version;
+
+    /**
+     * Define the core functionality of the plugin.
+     *
+     * Set the plugin name and the plugin version that can be used throughout the plugin.
+     * Load the dependencies, define the locale, and set the hooks for the admin area and
+     * the public-facing side of the site.
+     *
+     * @since    1.0.0
+     */
+    public function __construct($version)
+    {
+        $this->plugin_name = 'wordpress-travel-maps';
+        $this->version = $version;
+
+        $this->load_dependencies();
+        $this->set_locale();
+        $this->define_admin_hooks();
+        $this->define_public_hooks();
+    }
+
+    /**
+     * Load the required dependencies for this plugin.
+     *
+     * Include the following files that make up the plugin:
+     *
+     * - WordPress_Travel_Maps_Loader. Orchestrates the hooks of the plugin.
+     * - WordPress_Travel_Maps_i18n. Defines internationalization functionality.
+     * - WordPress_Travel_Maps_Admin. Defines all hooks for the admin area.
+     * - WordPress_Travel_Maps_Public. Defines all hooks for the public side of the site.
+     *
+     * Create an instance of the loader which will be used to register the hooks
+     * with WordPress.
+     *
+     * @since    1.0.0
+     */
+    private function load_dependencies()
+    {
+
+        /**
+         * The class responsible for orchestrating the actions and filters of the
+         * core plugin.
+         */
+        require_once plugin_dir_path(dirname(__FILE__)).'includes/class-wordpress-travel-maps-loader.php';
+
+        /**
+         * The class responsible for defining internationalization functionality
+         * of the plugin.
+         */
+        require_once plugin_dir_path(dirname(__FILE__)).'includes/class-wordpress-travel-maps-i18n.php';
+
+        /**
+         * The class responsible for defining all actions that occur in the admin area.
+         */
+        require_once plugin_dir_path(dirname(__FILE__)).'admin/class-wordpress-travel-maps-admin.php';
+        require_once plugin_dir_path(dirname(__FILE__)).'admin/class-wordpress-travel-maps-post-type.php';
+
+        /**
+         * The class responsible for defining all actions that occur in the public-facing
+         * side of the site.
+         */
+        require_once plugin_dir_path(dirname(__FILE__)).'public/class-wordpress-travel-maps-public.php';
+        require_once plugin_dir_path(dirname(__FILE__)).'public/class-wordpress-travel-maps-public-ajax.php';
+
+        // Load the TGM init if it exists
+        if (file_exists(plugin_dir_path(dirname(__FILE__)).'admin/tgm/tgm-init.php')) {
+            require_once plugin_dir_path(dirname(__FILE__)).'admin/tgm/tgm-init.php';
+        }
+
+        if (file_exists(plugin_dir_path(dirname(__FILE__)).'admin/meta-boxes.php')) {
+            require_once plugin_dir_path(dirname(__FILE__)).'admin/meta-boxes.php';
+        }
+
+        if (file_exists(plugin_dir_path(dirname(__FILE__)).'admin/Tax-meta-class/Tax-meta-class.php')) {
+            require_once plugin_dir_path(dirname(__FILE__)).'admin/Tax-meta-class/Tax-meta-class.php';
+        }
+
+        // Load Vendors
+        if (file_exists(plugin_dir_path(dirname(__FILE__)).'vendor/autoload.php')) {
+            require_once plugin_dir_path(dirname(__FILE__)).'vendor/autoload.php';
+        }
+
+        $this->loader = new WordPress_Travel_Maps_Loader();
+    }
+
+    /**
+     * Define the locale for this plugin for internationalization.
+     *
+     * Uses the WordPress_Travel_Maps_i18n class in order to set the domain and to register the hook
+     * with WordPress.
+     *
+     * @since    1.0.0
+     */
+    private function set_locale()
+    {
+        $plugin_i18n = new WordPress_Travel_Maps_i18n();
+
+        $this->loader->add_action('plugins_loaded', $plugin_i18n, 'load_plugin_textdomain');
+    }
+
+    /**
+     * Register all of the hooks related to the admin area functionality
+     * of the plugin.
+     *
+     * @since    1.0.0
+     */
+    private function define_admin_hooks()
+    {
+        if(class_exists('RW_Meta_Box')) {
+            $plugin_admin = new WordPress_Travel_Maps_Admin($this->get_plugin_name(), $this->get_version());
+            $plugin_post_type = new WordPress_Travel_Maps_Post_Type($this->get_plugin_name(), $this->get_version());
+            
+
+            $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles', 999);
+            $this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts', 999);
+
+            $this->loader->add_action('plugins_loaded', $plugin_admin, 'load_extensions');
+            
+            $this->loader->add_action('wp_ajax_save_directions', $plugin_admin, 'ajax_save_directions' );
+            $this->loader->add_action('wp_ajax_get_directions', $plugin_admin, 'ajax_get_directions' );
+            $this->loader->add_action('wp_ajax_nopriv_get_directions', $plugin_admin, 'ajax_get_directions' );
+
+            $this->loader->add_action('vc_before_init', $plugin_admin, 'vc_menu_icon');
+
+            $this->loader->add_action('init', $plugin_post_type, 'init_WordPress_Travel_Maps_Post_Type');
+        }
+    }
+
+    /**
+     * Register all of the hooks related to the public-facing functionality
+     * of the plugin.
+     *
+     * @since    1.0.0
+     */
+    private function define_public_hooks()
+    {
+        if(class_exists('RW_Meta_Box')) {
+            $plugin_public = new WordPress_Travel_Maps_Public($this->get_plugin_name(), $this->get_version());
+            $plugin_public_ajax = new WordPress_Travel_Maps_Public_Ajax($this->get_plugin_name(), $this->get_version());
+
+            $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
+            $this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
+
+            $this->loader->add_action('wp_ajax_nopriv_get_travel_maps', $plugin_public_ajax, 'get_travel_maps');
+            $this->loader->add_action('wp_ajax_get_travel_maps', $plugin_public_ajax, 'get_travel_maps');
+
+            $this->loader->add_action('init', $plugin_public, 'init_WordPress_Travel_Maps');
+        }
+    }
+
+    /**
+     * Run the loader to execute all of the hooks with WordPress.
+     *
+     * @since    1.0.0
+     */
+    public function run()
+    {
+        $this->loader->run();
+    }
+
+    /**
+     * The name of the plugin used to uniquely identify it within the context of
+     * WordPress and to define internationalization functionality.
+     *
+     * @since     1.0.0
+     *
+     * @return string The name of the plugin.
+     */
+    public function get_plugin_name()
+    {
+        return $this->plugin_name;
+    }
+
+    /**
+     * The reference to the class that orchestrates the hooks with the plugin.
+     *
+     * @since     1.0.0
+     *
+     * @return WordPress_Travel_Maps_Loader Orchestrates the hooks of the plugin.
+     */
+    public function get_loader()
+    {
+        return $this->loader;
+    }
+
+    /**
+     * Retrieve the version number of the plugin.
+     *
+     * @since     1.0.0
+     *
+     * @return string The version number of the plugin.
+     */
+    public function get_version()
+    {
+        return $this->version;
+    }
+}

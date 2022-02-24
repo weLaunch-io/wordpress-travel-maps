@@ -1,0 +1,41 @@
+.wordpress-travel-map-container {
+	width: 100%;
+}
+
+.wordpress-travel-map {
+	height: 500px;
+	width: 70%;
+	float:left;
+}
+
+.wordpress-travel-panel {
+	width: 25%;
+	padding-left: 4%;
+	float:left;
+}
+
+.wordpress-travel-panel input {
+	padding: 5px;
+	margin-top: 15px;
+	margin-bottom: 5px;
+	width: 100%;
+}
+
+.wordpress-travel-panel .wordpress-travel-map-waypoint {
+	width: 90%;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+.wordpress-travel-panel .wordpress-travel-map-waypoint-remove {
+	color: red;
+}
+
+.wordpress-travel-panel h3 {
+    margin-bottom: 0;
+    margin-top: 20px;
+}
+
+body.post-type-travel_maps .composer-switch {
+	display: none;
+}

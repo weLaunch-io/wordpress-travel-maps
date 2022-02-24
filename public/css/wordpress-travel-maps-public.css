@@ -1,0 +1,402 @@
+/**
+ * Store Locator Modal 
+ */
+.modal-open #travel_map_modal{
+  overflow: hidden;
+}
+#travel_map_modal.modal {
+  position: fixed;
+  top: 40px;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  display: none;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+  outline: 0;
+}
+
+.modal-open #travel_map_modal.modal {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+#travel_map_modal .modal-dialog {
+  position: relative;
+  width: auto;
+  margin: 10px;
+}
+#travel_map_modal .modal-content {
+  position: relative;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+          background-clip: padding-box;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, .2);
+  border-radius: 6px;
+  outline: 0;
+  -webkit-box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+          box-shadow: 0 3px 9px rgba(0, 0, 0, .5);
+}
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1040;
+  background-color: #000;
+}
+.modal-backdrop.fade {
+  filter: alpha(opacity=0);
+  opacity: 0;
+}
+.modal-backdrop.in {
+  filter: alpha(opacity=50);
+  opacity: .5;
+}
+#travel_map_modal .modal-title {
+  margin: 0;
+  line-height: 1.42857143;
+}
+#travel_map_modal .modal-body {
+  position: relative;
+  padding: 15px;
+}
+#travel_map_modal .modal-footer {
+  padding: 15px;
+  text-align: right;
+  border-top: 1px solid #e5e5e5;
+}
+#travel_map_modal .modal-footer .btn + .btn {
+  margin-bottom: 0;
+  margin-left: 5px;
+}
+#travel_map_modal .modal-footer .btn-group .btn + .btn {
+  margin-left: -1px;
+}
+#travel_map_modal .modal-footer .btn-block + .btn-block {
+  margin-left: 0;
+}
+#travel_map_modal .modal-scrollbar-measure {
+  position: absolute;
+  top: -9999px;
+  width: 50px;
+  height: 50px;
+  overflow: scroll;
+}
+@media (min-width: 768px) {
+  #travel_map_modal .modal-dialog {
+    width: 600px;
+    margin: 30px auto;
+  }
+  #travel_map_modal .modal-content {
+    -webkit-box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, .5);
+  }
+  #travel_map_modal .modal-sm {
+    width: 300px;
+  }
+}
+@media (min-width: 992px) {
+  #travel_map_modal .modal-lg {
+    width: 900px;
+  }
+}
+
+#travel_map_modal_close {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  z-index: 99;
+}
+/**
+ * Store Locator Result List
+ */
+
+/**
+ * Store Locator Map
+ */
+#travel_map_locator_result_list {
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.travel_map_locator_result_list_item {
+  border-bottom: 1px solid #E6E6E6;
+  padding: 5px 10px 10px;
+  position: relative;
+}
+
+.travel_map_locator_result_list_title {
+  border-top: 1px solid #E6E6E6;
+}
+
+.travel_map_locator_result_list_item:hover {
+  cursor: pointer;
+  background-color: #eeeeee;
+}
+
+.travel_map_locator_search_box, .travel_map_locator_filter_box {
+  margin: 0 0 15px;
+}
+
+.travel_map_locator_filter_box h3 {
+  margin-bottom: 0px;
+}
+
+.travel_map_locator_filter_box h4 {
+  margin: 10px 0 0;
+}
+
+.travel_map_locator_details p {
+  margin: 0;
+}
+
+.travel_map_locator_icon {
+  margin-top: 30px;
+}
+
+.pac-container {
+  z-index: 99999;
+}
+
+.travel_map_locator_loading {
+  background-color: #FFFFFF;
+  height: 100%;
+  width: 100%;
+  z-index: 99999;
+  position: absolute;
+  left: 0;
+  top: 0;
+  zoom: 1;
+  filter: alpha(opacity=80);
+  opacity: 0.8;
+}
+
+.travel_map_locator_loading i {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+}
+
+i.fa {
+    -moz-transition: all 0.2s linear;
+    -webkit-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+}
+
+.travel_map_locator_name {
+  margin-bottom: 0px;
+}
+
+.travel_map_locator_filter_radius, .travel_map_locator_find_travel_maps_button, .travel_map_locator_address_field {
+  width: 100%;
+}
+
+.travel_map_locator_filter_categories {
+  width: 100% !important;
+}
+
+.travel_map_modal_title {
+  margin-bottom: 0px;
+}
+
+.travel_map_locator_search_box {
+  margin-bottom: 10px;
+}
+
+.travel_map_locator .travel_map_locator_address_field:focus {
+  background-color: #FFFFFF;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+.travel_map_locator .travel_map_locator_address_field, 
+.travel_map_locator .select {
+    padding: 20px 15px;
+    border: 1px solid #EEE;
+    background-color: #FFF;
+    border-radius: 0px;
+    box-shadow: none;
+    color: #484c51;
+}
+
+.travel_map_locator .select {
+  height: 40px;  
+}
+
+.travel_map_locator_search_box .row {
+  margin-bottom: 15px;
+}
+
+.travel_map_locator .select {
+  display: inline-block;
+  /* 1 */
+  position: relative;
+  /* 2 */
+  vertical-align: middle;
+  /* 3 */
+  padding: 0;
+  /* 4 */
+  overflow: hidden;
+  /* 5 */
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  -moz-transition: box-shadow 0.25s ease;
+  -o-transition: box-shadow 0.25s ease;
+  -webkit-transition: box-shadow 0.25s ease;
+  transition: box-shadow 0.25s ease;
+  /* 6 */
+  /* 6 */
+}
+.travel_map_locator .select:hover {
+  -moz-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  -webkit-box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+.travel_map_locator .select:before {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  pointer-events: none;
+}
+.travel_map_locator .select select {
+  cursor: pointer;
+  padding: 0.5em;
+  padding-right: 2em;
+  width: 130%;
+  border: none;
+  background: transparent;
+  background-image: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  text-indent: 0.01px;
+  text-overflow: '';
+  width: 160% \9;
+}
+.travel_map_locator .select select:focus {
+  outline: none;
+}
+
+.travel_map_locator .select:before {
+  font-family: "FontAwesome";
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.travel_map_locator .icon--down:before, .select:before {
+  content: "\f063";
+}
+
+.travel_map_locator_filter_open_close:hover {
+  cursor:pointer;
+}
+
+.travel_map_locator_filter_title {
+  display: inline;
+}
+
+.travel_map_locator_filter_open_close i {
+  float:right;
+  margin-top: 10px;
+}
+
+.single_filter h5 {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+
+.single_filter_checkbox {
+  margin-top: 5px;
+}
+
+/* TEST */
+.control {
+  display: block;
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+  font-size: 16px;
+}
+.control input {
+  position: absolute;
+  z-index: -1;
+  opacity: 0;
+}
+.control__indicator {
+  position: absolute;
+  top: 2px;
+  left: 0;
+  margin-left:2px;
+  height: 20px;
+  width: 20px;
+  background: #e6e6e6;
+}
+.control--radio .control__indicator {
+  border-radius: 50%;
+}
+.control:hover input ~ .control__indicator,
+.control input:focus ~ .control__indicator {
+  background: #ccc;
+}
+.control input:checked ~ .control__indicator {
+  background: #60646c;
+}
+.control:hover input:not([disabled]):checked ~ .control__indicator,
+.control input:checked:focus ~ .control__indicator {
+  background: #60646c;
+}
+.control input:disabled ~ .control__indicator {
+  background: #e6e6e6;
+  opacity: 0.6;
+  pointer-events: none;
+}
+.control__indicator:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+.control input:checked ~ .control__indicator:after {
+  display: block;
+}
+.control--checkbox .control__indicator:after {
+  left: 8px;
+  top: 4px;
+  width: 3px;
+  height: 8px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+.control--checkbox input:disabled ~ .control__indicator:after {
+  border-color: #60646c;
+}
+
+.travel_map_locator_actions a {
+  margin-right: 5px;
+}
+
+.travel_map_locator_opening_hours {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.travel_map_locator_opening_hours h3 {
+  margin-bottom: 5px;
+}
+
+.wordpress-travel-map-directions-button {
+    position: absolute;
+    bottom: 60px;
+    right: 40%;
+}
